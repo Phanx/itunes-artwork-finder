@@ -166,7 +166,7 @@ function transformToAssocArray( prmstr ) {
     var prmarr = prmstr.split("&");
     for ( var i = 0; i < prmarr.length; i++) {
         var tmparr = prmarr[i].split("=");
-        params[tmparr[0]] = decodeURIComponent(tmparr[1]);
+        params[tmparr[0]] = decodeURIComponent(tmparr[1]).replace("+", " ");
     }
     return params;
 }
@@ -182,11 +182,11 @@ function performSearch() {
 
     var entity = ($('#entity').val()) ? $('#entity').val() : 'tvSeason';
     var country = ($('#country').val()) ? $('#country').val() : 'us';
-    
+
     $.ajax({
         type: "GET",
         crossDomain: true,
-        url: 'api.php',
+        url: '/search',
         data: {query: query, entity: entity, country: country},
         dataType: 'json'
     }).done(function(data) {
@@ -212,30 +212,28 @@ function performSearch() {
 
                     $('#results').append(html);
                 };
-            }            
+            }
         }
-        $('#results').append('<p>If the item you are searching for is not available on iTunes, this tool will not find it. Please do not email me asking for specific items if they are not available on iTunes! I recommend both <a href="https://code.google.com/p/subler/">Subler</a> and <a href="https://www.google.co.uk/imghp?gws_rd=ssl">Google Image Search</a> as good alternative places to find artwork.</p>');
-
     });
 }
 
-$(document).ready(function() {	
-
-
+$(document).ready(function() {
+    /*
 	var sortable = [];
 	for (var key in countries) {
-		sortable.push([key, countries[key]]);	
+		sortable.push([key, countries[key]]);
 	}
     sortable.sort(function(a, b) {
     	if(a[1] < b[1]) return 1;
 	    if(a[1] > b[1]) return -1;
 	    return 0;
     });
-	
+
 	for (var i = sortable.length - 1; i >= 0; i--) {
 		var array = sortable[i];
 		$('#country').append('<option value="'+array[0]+'">'+array[1]+'</option>');
 	};
+    */
 
     var params = getSearchParameters();
     if (params.entity && params.query && params.country) {
@@ -249,6 +247,4 @@ $(document).ready(function() {
 		performSearch();
 		return false;
 	});
-
-
 });

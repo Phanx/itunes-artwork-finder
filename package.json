@@ -1,0 +1,17 @@
+{
+  "name": "itunes-artwork-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Zlib",
+  "dependencies": {
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "jquery": "^2.2.0",
+    "request": "^2.67.0"
+  }
+}

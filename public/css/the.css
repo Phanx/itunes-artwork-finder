@@ -1,0 +1,83 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box
+}
+html,
+body {
+	font: 1em/1.5 Input Sans, sans-serif;
+	height: 100%;
+	margin: 0;
+	padding: 0
+}
+body {
+	background: #000;
+	color: rgb(228, 195, 0);
+	padding: 2em;
+	text-align: center
+}
+a {
+	color: rgb(156, 228, 0)
+}
+a:hover,
+a:focus,
+a:active {
+	color: rgb(195, 255, 0);
+	transition: color 0.2s
+}
+h1 {
+	font-size: 2em;
+	font-weight: 700;
+	margin: 0
+}
+form {
+	display: flex;
+	align-content: flex-start;
+	justify-content: center;
+	margin: 1em 0
+}
+button,
+input,
+select {
+	background: rgba(255, 255, 255, 0.15);
+	border: 0;
+	border-bottom: 2px solid rgb(228, 195, 0);
+	box-sizing: border-box;
+	color: inherit;
+	display: block;
+	font: inherit;
+	margin: 0 0.25em;
+	padding: 0.25em 0.5em
+}
+input {
+	width: 20em
+}
+button {
+	background: rgba(228, 195, 0, 0.75);
+	border-bottom: 0;
+	color: #000;
+	cursor: pointer;
+	padding: 0.25em 1em
+}
+button:hover, button:focus, button:active {
+	background: rgb(228, 195, 0);
+	transition: background-color 0.2s
+}
+footer {
+	font-size: 0.8em;
+	margin-top: 2rem
+}
+footer p {
+	margin: 0
+}
+.page {
+	display: flex;
+	flex-direction: column
+}
+.page-header,
+.page-footer {
+	flex: none
+}
+.page-content {
+	flex: 1 0 auto
+}

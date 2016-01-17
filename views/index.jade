@@ -1,0 +1,43 @@
+extends ./layout.jade
+
+block title
+	title iTunes Artwork Finder
+
+block header
+	h1 iTunes Artwork Finder
+
+block content
+	form#iTunesSearch(action="/search", method="get", accept-charset="utf-8", role="search")
+
+		select#entity(name="entity", aria-label="Media Type")
+			option(value="tvSeason") TV Show
+			option(value="movie") Movie
+			option(value="ebook") iBook
+			option(value="album") Album
+			option(value="software") App
+			option(value="audiobook") Audiobook
+			option(value="podcast") Podcast
+			option(value="id") Apple ID (Movies)
+			option(value="shortFilm") Short Film
+
+		input#query(name="query", type="text", aria-label="Search Term")
+
+		select#country(name="country", aria-label="Country")
+			option(value="us") United States
+			option(value="au") Australia
+			option(value="ca") Canada
+			option(value="de") Germany
+			option(value="pl") Poland
+			option(value="se") Sweden
+			option(value="ch") Switzerland
+			option(value="gb") United Kingdom
+
+		button(type="submit") Find
+
+	#results(role="main")
+
+block footer
+	p Forked from #[a(href="http://bendodson.com/projects/itunes-artwork-finder/") Ben Dodson‘s original version].
+
+block extrascripts
+	script(src="/js/itunes.js")
