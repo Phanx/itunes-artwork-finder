@@ -2,7 +2,7 @@ var express = require("express")
 var app = express()
 
 // Set up templating engine
-app.set("view engine", "jade")
+app.set("view engine", "pug")
 app.set("views", "views")
 
 // Serve static files from the public directory

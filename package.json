@@ -6,13 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Phanx",
   "license": "Zlib",
   "private": true,
   "dependencies": {
     "express": "^4.13.3",
-    "jade": "^1.11.0",
     "jquery": "^2.2.0",
+    "pug": "^2.0.0-beta5",
     "url-parse": "^1.0.5"
   }
 }
