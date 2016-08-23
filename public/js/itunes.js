@@ -157,51 +157,52 @@ var countries = {
 }
 
 function getSearchParameters() {
-      var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
-}
-
-function transformToAssocArray( prmstr ) {
     var params = {};
-    var prmarr = prmstr.split("&");
-    for ( var i = 0; i < prmarr.length; i++) {
-        var tmparr = prmarr[i].split("=");
-        params[tmparr[0]] = decodeURIComponent(tmparr[1]).replace("+", " ");
+    var paramString = window.location.search.substr(1);
+    if (paramString && paramString !== "") {
+        var fullURI = window.location.toString();
+        var cleanURI = fullURI.substring(0, fullURI.indexOf("?")); 
+        window.history.replaceState({}, document.title, cleanURI);
+
+        var paramArray = paramString.split("&");
+        for (var i = 0; i < paramArray.length; i++) {
+            var tempArray = paramArray[i].split("=");
+            params[tempArray[0]] = decodeURIComponent(tempArray[1]).replace("+", " ");
+        }
     }
     return params;
 }
 
 function performSearch() {
     $('#results').html('');
-    $('#results').append('<h3>Searching...</h3>');
+    $('#results').append('<p>Searching...</p>');
 
     var query = $('#query').val();
     if (!query.length) {
         return false;
     };
 
-    var entity = ($('#entity').val()) ? $('#entity').val() : 'tvSeason';
-    var country = ($('#country').val()) ? $('#country').val() : 'us';
+    var entity =  $('#entity').val() || 'tvSeason';
+    var country =  $('#country').val() || 'us';
 
     $.ajax({
         type: "GET",
         crossDomain: true,
         url: '/search',
-        data: {query: query, entity: entity, country: country},
+        data: { query: query, entity: entity, country: country },
         dataType: 'json'
     }).done(function(data) {
         $('#results').html('');
         if (data.error) {
-                $('#results').append('<h3>'+data.error+'</h3>');
+                $('#results').append('<p>'+data.error+'</p>');
         } else {
             if (!data.length) {
-                $('#results').append('<h3>No results found.</h3>');
+                $('#results').append('<p>No results found.</p>');
             } else {
                 for (var i = 0; i < data.length; i++) {
                     var result = data[i];
-                    console.log(result.title);
 
-                    var html = '<div><h3>'+result.title+'</h3>';
+                    var html = '<div><h2>'+result.title+'</h2>';
                     if (entity != 'software') {
                         html += '<p><a href="'+result.url+'" target="_blank">Standard Resolution</a> | <a href="'+result.hires+'" target="_blank">High Resolution</a> <em><small>'+result.warning+'</small></em></p>';
                     } else {
@@ -236,14 +237,15 @@ $(document).ready(function() {
     */
 
     var params = getSearchParameters();
-    if (params.entity && params.query && params.country) {
+    if (params.entity && params.query) {
         $('#query').val(params.query);
         $('#entity').val(params.entity);
-        $('#country').val(params.country);
+        $('#country').val(params.country || 'us');
         performSearch();
     };
 
-	$('#iTunesSearch').submit(function() {
+	$('#iTunesSearch').submit(function(event) {
+		event.preventDefault();
 		performSearch();
 		return false;
 	});
